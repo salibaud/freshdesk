@@ -7,6 +7,9 @@ import json
 import pandas as pd
 from tqdm import tqdm
 
+my_session = boto3.Session(aws_access_key_id="AKIAT3PM4W6RIGWH4HGE",aws_secret_access_key="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",region_name="eu-west-1")
+
+
 import re
 
 def remove_emoji(string):
@@ -118,4 +121,5 @@ resultados["user"]=resultados["user"].str.replace(';', '',regex=True)
 wr.s3.to_parquet(df=(resultados),
              path="s3://kaufmann-data-science/freshdesk",
              dataset=True,
-             mode = 'append')
+             mode = 'append',
+             boto3_session=my_session)
